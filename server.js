@@ -5,13 +5,14 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 
 const Item = require("./models/item");
-const { userInfo } = require("os");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(methodOverride("_method"));
+app.use(express.static(__dirname + "/public"));
 
 mongoose.connect("mongodb://localhost:27017/todo");
 
@@ -24,38 +25,59 @@ db.once("open", () => {
 //show all items
 app.get("/items", async (req, res) => {
 	const items = await Item.find({});
-	res.render("index.ejs", { items });
-	console.log(items);
+	res.render("index.ejs", { items, title: "All Items" });
 });
 
-//create item
+//create item - get
 app.get("/items/new", (req, res) => {
-	res.render("new.ejs");
+	res.render("new.ejs", { title: "Create Item" });
 });
 
-//create item
+//create item - post
 app.post("/items", async (req, res) => {
 	const newItem = new Item(req.body);
 	await newItem.save();
 	res.redirect("/items");
 });
 
-//update item
+//update item - get
 app.get("/items/:id/edit", async (req, res) => {
 	const item = await Item.findById(req.params.id);
-	res.render("edit.ejs", { item });
+	res.render("edit.ejs", { item, title: "Edit Item" });
 });
 
-//update item
+//update item - put
 app.put("/items/:id", async (req, res) => {
 	const item = await Item.findByIdAndUpdate(req.params.id, req.body);
 	res.redirect(`/items/${item._id}`);
 });
 
+//update item as completed - put
+app.put("/items/:id/markComplete", async (req, res) => {
+	await Item.findByIdAndUpdate(
+		{ _id: req.body.elementID },
+		{
+			complete: true,
+		}
+	);
+	res.json("Marked Complete");
+});
+
+//update item as completed - put
+app.put("/items/:id/markIncomplete", async (req, res) => {
+	await Item.findByIdAndUpdate(
+		{ _id: req.body.elementID },
+		{
+			complete: false,
+		}
+	);
+	res.json("Marked Incomplete");
+});
+
 //show item detail
 app.get("/items/:id", async (req, res) => {
 	const item = await Item.findById(req.params.id);
-	res.render("show.ejs", { item });
+	res.render("show.ejs", { item, title: item.name });
 });
 
 //delete item

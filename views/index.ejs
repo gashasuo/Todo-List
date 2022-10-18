@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>All Items</title>
-	</head>
+<%- include("partials/header.ejs") %> 
+</html>
 	<body>
-		All Items
-		<ul>
+		<h1>All Items</h1>
+	
+		<ul class = "uncompleted">
 			<% for (let item of items) {%>
-			<li><a href="/items/<%= item.id %>"><%= item.name %></a></li>
+			<li><a href="/items/<%= item.id %>"><%= item.name %></a> <span data-id="<%=item.id %>">&#9744;</span></li>
 			<% } %>
 		</ul>
 		<a href="/items/new">Add Item</a>
+
+		<h2>Completed Items</h2>
+		<ul class="complete">
+	
+		</ul>
+
+		<script src="/js/app.js"></script>
 	</body>
 </html>
