@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 
 const Item = require("./models/item");
+const Project = require("./models/project");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -22,15 +23,58 @@ db.once("open", () => {
 	console.log("Database connected");
 });
 
+//show all projects
+app.get("/projects", async (req, res) => {
+	const projects = await Project.find({});
+	res.render("projects/projects.ejs", { projects, title: "All Projects" });
+});
+
+//create project - get
+app.get("/projects/new", (req, res) => {
+	res.render("projects/new.ejs", { title: "Create Project" });
+});
+
+//create project - post
+app.post("/projects", async (req, res) => {
+	const newProject = new Project(req.body);
+	await newProject.save();
+	res.redirect("/projects");
+});
+
+//update item - get
+app.get("/projects/:id/edit", async (req, res) => {
+	const project = await Project.findById(req.params.id);
+	res.render("projects/edit.ejs", { project, title: "Edit Project" });
+});
+
+//update item - put
+app.put("/projects/:id", async (req, res) => {
+	const project = await Project.findByIdAndUpdate(req.params.id, req.body);
+	res.redirect(`/projects/${project._id}`);
+});
+
+//show project details
+app.get("/projects/:id", async (req, res) => {
+	const project = await Project.findById(req.params.id);
+	res.render("projects/show.ejs", { project, title: project.name });
+});
+
+//delete item
+app.delete("/projects/:id", async (req, res) => {
+	await Project.findByIdAndDelete(req.params.id);
+	res.redirect("/projects");
+});
+
+//ITEMS
 //show all items
 app.get("/items", async (req, res) => {
 	const items = await Item.find({});
-	res.render("index.ejs", { items, title: "All Items" });
+	res.render("items/index.ejs", { items, title: "All Items" });
 });
 
 //create item - get
 app.get("/items/new", (req, res) => {
-	res.render("new.ejs", { title: "Create Item" });
+	res.render("items/new.ejs", { title: "Create Item" });
 });
 
 //create item - post
@@ -43,7 +87,7 @@ app.post("/items", async (req, res) => {
 //update item - get
 app.get("/items/:id/edit", async (req, res) => {
 	const item = await Item.findById(req.params.id);
-	res.render("edit.ejs", { item, title: "Edit Item" });
+	res.render("items/edit.ejs", { item, title: "Edit Item" });
 });
 
 //update item - put
@@ -77,7 +121,7 @@ app.put("/items/:id/markIncomplete", async (req, res) => {
 //show item detail
 app.get("/items/:id", async (req, res) => {
 	const item = await Item.findById(req.params.id);
-	res.render("show.ejs", { item, title: item.name });
+	res.render("items/show.ejs", { item, title: item.name });
 });
 
 //delete item

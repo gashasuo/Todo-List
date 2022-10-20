@@ -1,0 +1,15 @@
+<%- include("../partials/header.ejs") %>
+<body>
+	<h1>Edit a Project</h1>
+	<form action="/projects/<%=project._id%>?_method=PUT" method="POST">
+		<label for="name">Edit Project</label>
+		<input
+			type="text"
+			name="name"
+			placeholder="Enter Project"
+			value="<%=project.name %>"
+		/>
+		<button>Enter</button>
+	</form>
+	<div><a href="/projects">Back to All Projects</a></div>
+</body>

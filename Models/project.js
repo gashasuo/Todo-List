@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const itemSchema = new mongoose.Schema({
+const projectSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
@@ -11,11 +11,10 @@ const itemSchema = new mongoose.Schema({
 	},
 	project: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Project",
-		default: "Today",
+		ref: "Item",
 	},
 });
 
-const Item = mongoose.model("Item", itemSchema);
+const Project = mongoose.model("Project", projectSchema);
 
-module.exports = Item;
+module.exports = Project;
