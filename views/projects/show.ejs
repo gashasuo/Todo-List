@@ -1,9 +1,14 @@
 <%- include("../partials/header.ejs") %> 
 	<body>
 		<h1><%= project.name %></h1>
+        <ul class = "uncompleted">
+			<% for (let item of items) {%>
+			<li><a href="/items/<%= item.id %>"><%= item.name %></a> <span data-id="<%=item.id %>">&#9744;</span></li>
+			<% } %>
+		</ul>
 
 		<a href="/projects">All Projects</a>
-		<a href="/projects/<%= project.id %>/edit">Edit Item</a>
+		<a href="/projects/<%= project.id %>/edit">Edit Project</a>
 		<form action="/projects/<%= project.id %>?_method=DELETE" method="POST">
 			<button>Delete</button>
 		</form>

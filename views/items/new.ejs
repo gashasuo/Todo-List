@@ -2,8 +2,18 @@
 	<body>
 		<h1>Add a ToDo Item</h1>
 		<form action="/items" method="POST">
+			<div>
 			<label for="name">New Item</label>
 			<input type="text" name="name" placeholder="Enter To-do Item" />
+		</div>	
+		<div>
+			<label for="project">Project</label>
+			<select name="project" id="project">
+				<% for (project of projects){ %> 
+				<option value="<%= project.id%>"><%= project.name%></option>
+				<% } %> 
+			</select>	
+		</div>	
 			<button>Enter</button>
 		</form>
 		<div><a href="/items">Back to All Items</a></div>

@@ -9,6 +9,11 @@
 			placeholder="Enter To-do Item"
 			value="<%=item.name %>"
 		/>
+		<select name="project" id="project">
+			<% for (project of projects){ %>
+			<option value="<%= project.id%>"><%= project.name%></option>
+			<% } %>
+		</select>
 		<button>Enter</button>
 	</form>
 	<div><a href="/items">Back to All Items</a></div>

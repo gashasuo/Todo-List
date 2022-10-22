@@ -1,6 +1,7 @@
 const uncompletedEl = document.querySelectorAll("span");
 const completedListEl = document.querySelector("ul.complete");
 const uncompletedListEl = document.querySelector("ul.uncompleted");
+const numberCompleteEl = document.querySelector("#complete");
 
 Array.from(uncompletedEl).forEach((element) => {
 	element.addEventListener("click", () => {
@@ -9,12 +10,16 @@ Array.from(uncompletedEl).forEach((element) => {
 			element.previousElementSibling.classList.toggle("completed");
 			element.innerText = "☐";
 			uncompletedListEl.appendChild(element.parentElement);
-			markIncomplete(elementID);
+			markIncomplete(elementID).then((data) => {
+				numberCompleteEl.innerText = `Items left to complete: ${data}`;
+			});
 		} else {
 			element.previousElementSibling.classList.toggle("completed");
 			element.innerText = "✓";
 			completedListEl.appendChild(element.parentElement);
-			markComplete(elementID);
+			markComplete(elementID).then((data) => {
+				numberCompleteEl.innerText = `Items left to complete: ${data}`;
+			});
 		}
 	});
 });
@@ -27,7 +32,7 @@ async function markComplete(elementID) {
 			elementID,
 		}),
 	});
-	await response.json();
+	return await response.json();
 }
 
 async function markIncomplete(elementID) {
@@ -38,5 +43,5 @@ async function markIncomplete(elementID) {
 			elementID,
 		}),
 	});
-	await response.json();
+	return await response.json();
 }

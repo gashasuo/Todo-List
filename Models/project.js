@@ -9,10 +9,12 @@ const projectSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
-	project: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "Item",
-	},
+	item: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Item",
+		},
+	],
 });
 
 const Project = mongoose.model("Project", projectSchema);

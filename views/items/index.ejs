@@ -5,14 +5,23 @@
 	
 		<ul class = "uncompleted">
 			<% for (let item of items) {%>
+			<% if(item.complete == false){ %>
 			<li><a href="/items/<%= item.id %>"><%= item.name %></a> <span data-id="<%=item.id %>">&#9744;</span></li>
 			<% } %>
+			<% } %>
 		</ul>
+		<h3 id="complete">Items left to complete: <%= complete %></h3>
 		<a href="/items/new">Add Item</a>
+		<a href="/projects">See All Projects</a>
+
 
 		<h2>Completed Items</h2>
 		<ul class="complete">
-	
+			<% for (let item of items) {%>
+				<% if(item.complete == true){ %>
+				<li><a href="/items/<%= item.id %>"><%= item.name %></a> <span data-id="<%=item.id %>">&#9744;</span></li>
+				<% } %>
+				<% } %>
 		</ul>
 
 		<script src="/js/app.js"></script>
