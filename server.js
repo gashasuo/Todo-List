@@ -35,7 +35,12 @@ app.get("/projects", async (req, res) => {
 		}
 	);
 	const projects = await Project.find({});
-	res.render("projects/projects.ejs", { projects, title: "All Projects" });
+	const complete = await Project.countDocuments({ complete: false });
+	res.render("projects/projects.ejs", {
+		projects,
+		complete,
+		title: "All Projects",
+	});
 });
 
 //create project - get
@@ -109,6 +114,19 @@ app.put("/items/:id", async (req, res) => {
 	res.redirect(`/items/${item._id}`);
 });
 
+//update project as completed - put
+app.put("/projects/:id/markComplete", async (req, res) => {
+	await Project.findByIdAndUpdate(
+		{ _id: req.body.elementID },
+		{
+			complete: true,
+		}
+	);
+
+	const complete = await Project.countDocuments({ complete: false });
+	return res.json(complete);
+});
+
 //update item as completed - put
 app.put("/items/:id/markComplete", async (req, res) => {
 	await Item.findByIdAndUpdate(
@@ -121,7 +139,20 @@ app.put("/items/:id/markComplete", async (req, res) => {
 	return res.json(complete);
 });
 
-//update item as completed - put
+//update project as not completed - put
+app.put("/projects/:id/markIncomplete", async (req, res) => {
+	await Project.findByIdAndUpdate(
+		{ _id: req.body.elementID },
+		{
+			complete: false,
+		}
+	);
+
+	const complete = await Project.countDocuments({ complete: false });
+	return res.json(complete);
+});
+
+//update item as not completed - put
 app.put("/items/:id/markIncomplete", async (req, res) => {
 	await Item.findByIdAndUpdate(
 		{ _id: req.body.elementID },
@@ -129,6 +160,7 @@ app.put("/items/:id/markIncomplete", async (req, res) => {
 			complete: false,
 		}
 	);
+
 	const complete = await Item.countDocuments({ complete: false });
 	return res.json(complete);
 });
