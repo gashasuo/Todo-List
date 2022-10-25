@@ -19,7 +19,7 @@
 		<ul class="complete">
 			<% for (let item of items) {%>
 				<% if(item.complete == true){ %>
-				<li><a href="/items/<%= item.id %>"><%= item.name %></a> <span class= "item" data-id="<%=item.id %>">&#9744;</span></li>
+				<li><a class = "completed" href="/items/<%= item.id %>"><%= item.name %></a> <span class= "item" data-id="<%=item.id %>">&#9744;</span></li>
 				<% } %>
 				<% } %>
 		</ul>

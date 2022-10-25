@@ -18,7 +18,6 @@ Array.from(uncompletedEl).forEach((element) => {
 			} else if (element.classList.contains("project")) {
 				markIncompleteProjects(elementID).then((data) => {
 					numberCompleteEl.innerText = `Projects left to complete: ${data}`;
-					console.log(data);
 				});
 			}
 		} //Uncompleted to completed
@@ -33,7 +32,6 @@ Array.from(uncompletedEl).forEach((element) => {
 			} else if (element.classList.contains("project")) {
 				markCompleteProjects(elementID).then((data) => {
 					numberCompleteEl.innerText = `Projects left to complete: ${data}`;
-					console.log(data);
 				});
 			}
 		}
