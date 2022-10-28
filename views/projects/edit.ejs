@@ -1,5 +1,7 @@
 <%- include("../partials/header.ejs") %>
 <body>
+	<%- include("../partials/navbar.ejs") %>
+
 	<h1>Edit a Project</h1>
 	<form action="/projects/<%=project._id%>?_method=PUT" method="POST">
 		<label for="name">Edit Project</label>

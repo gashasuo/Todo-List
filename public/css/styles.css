@@ -1,7 +1,42 @@
+body{
+    background-color: #4E5166;
+    color: lightskyblue;
+}
+
+h1, h2{
+    text-decoration: underline;
+}
+
 a{
-    color: blue
+    color: white;
 }
 
 .completed{
-    color: gray;
+    color: #D5C6E0;
+}
+
+/* navbar */
+.navbar{
+    display: flex;
+    background-color: black;
+    border-radius: 15px;
+    padding: 10px  ;
+}
+
+.navbar div{
+    flex: 1;
+}
+
+.div1{
+    text-align: start;
+    padding-left: 20px;
+}
+
+.div2{
+    text-align: end;
+    padding-right: 20px;
+}
+
+#profile{
+    font-weight: bolder;
 }

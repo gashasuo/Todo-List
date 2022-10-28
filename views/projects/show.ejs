@@ -1,6 +1,9 @@
 <%- include("../partials/header.ejs") %> 
 	<body>
+		<%- include("../partials/navbar.ejs") %> 
+
 		<h1><%= project.name %></h1>
+		<h2><%= user.username%></h2>
         <ul class = "uncompleted">
 			<% for (let item of items) {%>
 			<li><a href="/items/<%= item.id %>"><%= item.name %></a> <span data-id="<%=item.id %>">&#9744;</span></li>

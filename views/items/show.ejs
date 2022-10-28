@@ -1,10 +1,12 @@
 <%- include("../partials/header.ejs") %> 
 	<body>
+		<%- include("../partials/navbar.ejs") %> 
+
 		<h1><%= item.name %></h1>
-		<h2><% if (project) { %> 
+		<h3><% if (project) { %> 
 			Project: <%=project.name%>
 			<% } %> 
-		</h2>
+		</h3>
 
 		<a href="/items">All Items</a>
 		<a href="/items/<%= item.id %>/edit">Edit Item</a>

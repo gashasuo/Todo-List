@@ -1,0 +1,16 @@
+<div class="navbar">
+	<div class="div1">
+	<a href="/projects">Projects</a>
+	<a href="/items">Items</a>
+	</div>
+	<div class="div2">
+	<% if(!currentUser){ %> 
+	<a class="auth" href="/register">Register</a>
+	<a class="auth" href="/login">Login</a>
+	<% } else if(currentUser) { %>
+	<a class="auth" id ="profile" href=""><%= currentUser.username %></a>
+	<a class="auth" href="/logout">Logout</a>
+	<% } %> 
+	</div>
+</form>
+</div>

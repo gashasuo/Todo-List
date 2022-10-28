@@ -1,8 +1,11 @@
 <%- include("../partials/header.ejs") %> 
 </html>
 	<body>
+		<%- include("../partials/navbar.ejs") %> 
+
 		<h1>All Items</h1>
-	
+		<%- include("../partials/flash.ejs") %>
+
 		<ul class = "uncompleted">
 			<% for (let item of items) {%>
 			<% if(item.complete == false){ %>
@@ -19,7 +22,7 @@
 		<ul class="complete">
 			<% for (let item of items) {%>
 				<% if(item.complete == true){ %>
-				<li><a class = "completed" href="/items/<%= item.id %>"><%= item.name %></a> <span class= "item" data-id="<%=item.id %>">&#9744;</span></li>
+				<li><a class = "completed" href="/items/<%= item.id %>"><%= item.name %></a> <span class= "item" data-id="<%=item.id %>">&#10003;</span></li>
 				<% } %>
 				<% } %>
 		</ul>

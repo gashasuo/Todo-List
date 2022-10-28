@@ -1,5 +1,7 @@
 <%- include("../partials/header.ejs") %>
 <body>
+	<%- include("../partials/navbar.ejs") %>
+
 	<h1>Edit a ToDo Item</h1>
 	<form action="/items/<%=item._id%>?_method=PUT" method="POST">
 		<label for="name">Edit Item</label>
@@ -10,9 +12,9 @@
 			value="<%=item.name %>"
 		/>
 		<select name="project" id="project">
-			<% for (project of projects){ %>
+			<% for (project of projects){ %> <%if(project.user == currentUser.id){%>
 			<option value="<%= project.id%>"><%= project.name%></option>
-			<% } %>
+			<% } %> <% } %>
 		</select>
 		<button>Enter</button>
 	</form>
