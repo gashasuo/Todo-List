@@ -12,7 +12,9 @@
 			<label for="project">Project</label>
 			<select name="project" id="project">
 				<% for (project of projects){ %> 
+					<% if (project.user == currentUser.id){ %>
 				<option value="<%= project.id%>"><%= project.name%></option>
+				<% } %> 
 				<% } %> 
 			</select>	
 		</div>	

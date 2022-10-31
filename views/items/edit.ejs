@@ -12,9 +12,12 @@
 			value="<%=item.name %>"
 		/>
 		<select name="project" id="project">
-			<% for (project of projects){ %> <%if(project.user == currentUser.id){%>
+			<% for (project of projects){ %> <% if(project.user == currentUser.id){ %>
+			<% if (item.project.name == project.name){ %>
+			<option value="<%= project.id%>" selected><%= project.name%></option>
+			<% } else{%>
 			<option value="<%= project.id%>"><%= project.name%></option>
-			<% } %> <% } %>
+			<% } %> <% } %> <% } %>
 		</select>
 		<button>Enter</button>
 	</form>

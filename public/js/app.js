@@ -2,6 +2,7 @@ const uncompletedEl = document.querySelectorAll("span");
 const completedListEl = document.querySelector("ul.complete");
 const uncompletedListEl = document.querySelector("ul.uncompleted");
 const numberCompleteEl = document.querySelector("#complete");
+const markAllCompleteEL = document.querySelector("#markAll");
 
 Array.from(uncompletedEl).forEach((element) => {
 	element.addEventListener("click", () => {
@@ -38,6 +39,35 @@ Array.from(uncompletedEl).forEach((element) => {
 	});
 });
 
+//mark all complete in project
+if (markAllCompleteEL) {
+	markAllCompleteEL.addEventListener("click", (e) => {
+		console.log(e);
+		let elementID = e.currentTarget.dataset.id;
+		console.log(e.currentTarget.dataset.id);
+		markAllItemsComplete(elementID).then((data) => {
+			Array.from(uncompletedEl).forEach((element) => {
+				if (!(element.previousElementSibling.classList == "completed")) {
+					element.previousElementSibling.classList.toggle("completed");
+					element.innerText = "✓";
+					completedListEl.appendChild(element.parentElement);
+				}
+			});
+		});
+	});
+}
+
+async function markAllItemsComplete(elementID) {
+	const response = await fetch("/projects/:id/markAllitemsComplete", {
+		method: "put",
+		headers: { "Content-type": "application/json" },
+		body: JSON.stringify({
+			elementID,
+		}),
+	});
+	return await response.json();
+}
+
 async function markCompleteProjects(elementID) {
 	const response = await fetch("/projects/:id/markComplete", {
 		method: "put",
@@ -48,6 +78,7 @@ async function markCompleteProjects(elementID) {
 	});
 	return await response.json();
 }
+
 async function markCompleteItems(elementID) {
 	const response = await fetch("/items/:id/markComplete", {
 		method: "put",

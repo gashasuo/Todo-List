@@ -20,7 +20,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
-app.use(session({ secret: "secretkey" }));
+app.use(
+	session({ secret: "secretkey", resave: false, saveUninitialized: false })
+);
+
 app.use(flash());
 
 app.use(passport.initialize());
@@ -55,7 +58,7 @@ app.post("/register", async (req, res) => {
 	const { email, username, password } = req.body;
 	const user = new User({ email, username });
 	const registeredUser = await User.register(user, password);
-	const newProject = new Project({ name: "Today", user: registeredUser._id });
+	const newProject = new Project({ name: "Inbox", user: registeredUser._id });
 	await newProject.save();
 	req.flash("success", "Successfully registered!");
 	res.redirect("/projects");
@@ -74,6 +77,7 @@ app.post(
 		failureRedirect: "/login",
 	}),
 	async (req, res) => {
+		req.session.activeUser = req.user._id;
 		req.flash("success", "Successfully logged in!");
 		res.redirect("/projects");
 	}
@@ -86,6 +90,7 @@ app.get("/logout", (req, res, next) => {
 			return next(err);
 		}
 	});
+	req.session.activeUser = null;
 	req.flash("success", "Successfully logged out");
 	res.redirect("/projects");
 });
@@ -135,8 +140,6 @@ app.get("/projects/:id", isLoggedIn, isProjectOwner, async (req, res) => {
 	const project = await Project.findOne({ _id: req.params.id });
 	const user = await User.findById(project.user);
 	const items = await Item.find({ project: req.params.id, user: project.user });
-	console.log(project);
-	console.log(items);
 	res.render("projects/show.ejs", {
 		items,
 		project,
@@ -154,7 +157,7 @@ app.delete("/projects/:id", isLoggedIn, isProjectOwner, async (req, res) => {
 //ITEMS
 //show all items
 app.get("/items", isLoggedIn, async (req, res) => {
-	const items = await Item.find({ user: req.user._id });
+	const items = await Item.find({ user: req.user._id }).populate("project");
 	const complete = await Item.aggregate([
 		{ $match: { user: req.user._id, complete: false } },
 		{ $group: { _id: "$name" } },
@@ -186,7 +189,7 @@ app.post("/items", isLoggedIn, async (req, res) => {
 
 //edit item - get
 app.get("/items/:id/edit", isLoggedIn, isItemOwner, async (req, res) => {
-	const item = await Item.findById(req.params.id);
+	const item = await Item.findById(req.params.id).populate("project");
 	const projects = await Project.find({});
 	res.render("items/edit.ejs", { projects, item, title: "Edit Item" });
 });
@@ -197,7 +200,6 @@ app.put("/items/:id", isLoggedIn, isItemOwner, async (req, res) => {
 	const project = await Project.findByIdAndUpdate(req.body.project, {
 		item: req.params.id,
 	});
-	console.log(item);
 	res.redirect(`/items/${item._id}`);
 });
 
@@ -209,6 +211,7 @@ app.put("/projects/:id/markComplete", isLoggedIn, async (req, res) => {
 			complete: true,
 		}
 	);
+	// await Item.updateMany({ project: req.body.elementID }, { complete: true });
 	const complete = await Project.aggregate([
 		{ $match: { user: req.user._id, complete: false } },
 		{ $group: { _id: "$name" } },
@@ -241,6 +244,7 @@ app.put("/projects/:id/markIncomplete", isLoggedIn, async (req, res) => {
 			complete: false,
 		}
 	);
+	// await Item.updateMany({ project: req.body.elementID }, { complete: false });
 	const complete = await Project.aggregate([
 		{ $match: { user: req.user._id, complete: false } },
 		{ $group: { _id: "$name" } },
@@ -263,6 +267,13 @@ app.put("/items/:id/markIncomplete", isLoggedIn, async (req, res) => {
 	]);
 	const completeNumber = complete.length;
 	return res.json(completeNumber);
+});
+
+//update all items completed - put
+app.put("/projects/:id/markAllitemsComplete", isLoggedIn, async (req, res) => {
+	await Item.updateMany({ project: req.body.elementID }, { complete: true });
+	const items = await Item.find({ project: req.body.elementID });
+	return res.json(items);
 });
 
 //show item detail

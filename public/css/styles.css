@@ -1,6 +1,9 @@
 body{
     background-color: #4E5166;
     color: lightskyblue;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    margin: 5px 50px;
+ 
 }
 
 h1, h2{
@@ -13,6 +16,7 @@ a{
 
 .completed{
     color: #D5C6E0;
+    text-decoration:line-through;
 }
 
 /* navbar */
@@ -20,7 +24,8 @@ a{
     display: flex;
     background-color: black;
     border-radius: 15px;
-    padding: 10px  ;
+    padding: 10px 0px;
+   
 }
 
 .navbar div{
@@ -40,3 +45,14 @@ a{
 #profile{
     font-weight: bolder;
 }
+
+li > p{
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+li{
+    margin: 0;
+    margin-bottom: 5px;  
+}
+

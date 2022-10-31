@@ -9,20 +9,32 @@
 		<ul class = "uncompleted">
 			<% for (let item of items) {%>
 			<% if(item.complete == false){ %>
-			<li><a href="/items/<%= item.id %>"><%= item.name %></a> <span class= "item" data-id="<%=item.id %>">&#9744;</span></li>
+			<li><a href="/items/<%= item.id %>"><%= item.name %></a> <span class= "item" data-id="<%=item.id %>">&#9744;</span>
+				<% if(item.project.complete == true){ %>
+					<p class="completed"><%= item.project.name%></p> %>
+					<% } else{ %>
+
+
+				<p><%= item.project.name%></p>
+				<% } %>
+			</li>
 			<% } %>
 			<% } %>
 		</ul>
 		<h3 id="complete">Items left to complete: <%= complete %></h3>
 		<a href="/items/new">Add Item</a>
-		<a href="/projects">See All Projects</a>
 
 
-		<h2>Completed Items</h2>
+		<h2>Completed</h2>
 		<ul class="complete">
 			<% for (let item of items) {%>
 				<% if(item.complete == true){ %>
-				<li><a class = "completed" href="/items/<%= item.id %>"><%= item.name %></a> <span class= "item" data-id="<%=item.id %>">&#10003;</span></li>
+				<li><a class = "completed" href="/items/<%= item.id %>"><%= item.name %></a> <span class= "item" data-id="<%=item.id %>">&#10003;</span>
+					<% if(item.project.complete == true){ %>
+						<p class="completed"><%= item.project.name%></p> %>
+						<% } else{ %>
+					<p><%= item.project.name%></p>
+					<% } %>				</li>
 				<% } %>
 				<% } %>
 		</ul>

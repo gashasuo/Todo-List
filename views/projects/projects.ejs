@@ -6,7 +6,7 @@
 		<%- include("../partials/flash.ejs") %> 
 		<ul class = "uncompleted">
 			<% for (let project of projects) {%>
-				<% if (project.name == "Today") {%> 
+				<% if (project.name == "Inbox") {%> 
 					<li><a href="/projects/<%= project.id %>"><%= project.name %></a> <span class = "project" data-id="<%=project.id %>"></span></li>
 				<% } else{%> 
 					<% if(project.complete == false){ %>
@@ -18,9 +18,8 @@
 		<h3 id="complete">Projects left to complete: <%= complete %> 
 		</h3>
 		<a href="/projects/new">Add Project</a>
-		<a href="/items">See All Items</a>
 
-		<h2>Completed Projects</h2>
+		<h2>Completed</h2>
 			<ul class="complete">
 				<% for (let project of projects) {%>
 					<% if(project.complete == true){ %>
