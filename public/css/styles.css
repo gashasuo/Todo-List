@@ -6,12 +6,36 @@ body{
  
 }
 
+*{
+    text-decoration: none;
+}
+
 h1, h2{
     text-decoration: underline;
 }
 
 a{
     color: white;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.blue{
+    color: lightskyblue;
+    text-decoration: underline;
+    font-size: smaller;
+
+}
+
+#markAll{
+    color: white;
+
+}
+
+#markAll:hover{
+    color: lightskyblue;
 }
 
 .completed{
@@ -26,6 +50,17 @@ a{
     border-radius: 15px;
     padding: 10px 0px;
    
+}
+
+.navbar a{
+    padding: 3px 5px;
+}
+
+.navbar a:hover{
+    color: black;
+    background-color: lightskyblue;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
 .navbar div{
@@ -48,11 +83,15 @@ a{
 
 li > p{
     margin: 0;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    margin-top: -5px;
 }
+
+
 
 li{
     margin: 0;
     margin-bottom: 5px;  
 }
+
 

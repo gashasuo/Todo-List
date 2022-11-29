@@ -10,6 +10,7 @@
 			name="name"
 			placeholder="Enter To-do Item"
 			value="<%=item.name %>"
+			required
 		/>
 		<select name="project" id="project">
 			<% for (project of projects){ %> <% if(project.user == currentUser.id){ %>

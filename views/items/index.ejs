@@ -13,9 +13,7 @@
 				<% if(item.project.complete == true){ %>
 					<p class="completed"><%= item.project.name%></p> %>
 					<% } else{ %>
-
-
-				<p><%= item.project.name%></p>
+				<p><a class ="blue" href="/projects/<%=item.project.id%>"><%= item.project.name%></a></p>
 				<% } %>
 			</li>
 			<% } %>

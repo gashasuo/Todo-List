@@ -3,7 +3,7 @@
 		<%- include("../partials/navbar.ejs") %> 
 
 		<h1><%= project.name %></h1> 
-		<% if(items && items.length > 0 ){ %>
+		<% if(items && items.length > 0){ %>
 		<p id="markAll" data-id="<%=project.id %>">Mark All Items Complete</p>
 		<% } %>
 
@@ -11,7 +11,7 @@
         <ul class = "uncompleted">
 			<% for (let item of items) {%>
 				<% if(item.complete == false){ %>
-			<li><a href="/items/<%= item.id %>"><%= item.name %></a> <span data-id="<%=item.id %>">&#9744;</span></li>
+			<li><a href="/items/<%= item.id %>"><%= item.name %></a> <span class ="item" data-id="<%=item.id %>">&#9744;</span></li>
 			<% } %>
 			<% } %>
 		</ul>
@@ -25,7 +25,7 @@
 				<% } %>
 		</ul>
 
-
+		<div><a href="/items/new">Add Item</a></div>
 		<a href="/projects">All Projects</a>
 		<% if (!(project.name == "Inbox")){ %>
 		<a href="/projects/<%= project.id %>/edit">Edit Project</a>
