@@ -1,40 +1,46 @@
-const uncompletedEl = document.querySelectorAll("span");
+const allSpansEl = document.querySelectorAll("span");
 const completedListEl = document.querySelector("ul.complete");
 const uncompletedListEl = document.querySelector("ul.uncompleted");
 const numberCompleteEl = document.querySelector("#complete");
 const markAllCompleteEL = document.querySelector("#markAll");
 
-Array.from(uncompletedEl).forEach((element) => {
+function numberLefttoComplete(element, elementID, status) {
+	if (element.classList.contains("item") && !(status == markComplete)) {
+		markIncompleteItems(elementID).then((data) => {
+			return (numberCompleteEl.innerText = `Items left to complete: ${data}`);
+		});
+	} else if (element.classList.contains("item") && status == markComplete) {
+		markCompleteItems(elementID).then((data) => {
+			return (numberCompleteEl.innerText = `Items left to complete: ${data}`);
+		});
+	} else if (
+		element.classList.contains("project") & !(status == markComplete)
+	) {
+		markIncompleteProjects(elementID).then((data) => {
+			return (numberCompleteEl.innerText = `Projects left to complete: ${data}`);
+		});
+	} else if (element.classList.contains("project") && status == markComplete) {
+		markIncompleteProjects(elementID).then((data) => {
+			return (numberCompleteEl.innerText = `Projects left to complete: ${data}`);
+		});
+	}
+}
+
+Array.from(allSpansEl).forEach((element) => {
 	element.addEventListener("click", () => {
 		let elementID = element.dataset.id;
-		//Complete to uncompleted
-		if (element.previousElementSibling.classList == "completed") {
-			element.previousElementSibling.classList.toggle("completed");
-			element.innerText = "☐";
-			uncompletedListEl.appendChild(element.parentElement);
-			if (element.classList.contains("item")) {
-				markIncompleteItems(elementID).then((data) => {
-					numberCompleteEl.innerText = `Items left to complete: ${data}`;
-				});
-			} else if (element.classList.contains("project")) {
-				markIncompleteProjects(elementID).then((data) => {
-					numberCompleteEl.innerText = `Projects left to complete: ${data}`;
-				});
-			}
-		} //Uncompleted to completed
-		else {
+		if (!(element.previousElementSibling.classList == "completed")) {
 			element.previousElementSibling.classList.toggle("completed");
 			element.innerText = "✓";
 			completedListEl.appendChild(element.parentElement);
-			if (element.classList.contains("item")) {
-				markCompleteItems(elementID).then((data) => {
-					numberCompleteEl.innerText = `Items left to complete: ${data}`;
-				});
-			} else if (element.classList.contains("project")) {
-				markCompleteProjects(elementID).then((data) => {
-					numberCompleteEl.innerText = `Projects left to complete: ${data}`;
-				});
-			}
+			let status = markComplete;
+			numberLefttoComplete(element, elementID, status);
+		} else {
+			element.previousElementSibling.classList.toggle("completed");
+			element.innerText = "☐";
+			uncompletedListEl.appendChild(element.parentElement);
+			let status = markIncomplete;
+			numberLefttoComplete(element, elementID, status);
 		}
 	});
 });

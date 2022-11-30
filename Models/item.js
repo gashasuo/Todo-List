@@ -14,12 +14,10 @@ const itemSchema = new mongoose.Schema({
 		ref: "Project",
 		default: "Today",
 	},
-	user: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "User",
-		},
-	],
+	user: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
+	},
 });
 
 const Item = mongoose.model("Item", itemSchema);
