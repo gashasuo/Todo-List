@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+	require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -8,6 +12,7 @@ const localStrategy = require("passport-local");
 const session = require("express-session");
 const { isLoggedIn, isProjectOwner, isItemOwner } = require("./middleware");
 const flash = require("connect-flash");
+const MongoStore = require("connect-mongo");
 
 const Item = require("./models/item");
 const Project = require("./models/project");
@@ -18,8 +23,6 @@ const projectRoutes = require("./routes/projectRoutes");
 const itemRoutes = require("./routes/itemRoutes");
 const authRoutes = require("./routes/authRoutes");
 
-const projectController = require("./controllers/projectController");
-
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -27,9 +30,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
-app.use(
-	session({ secret: "secretkey", resave: false, saveUninitialized: false })
-);
+
+// const dbURL = process.env.DB_URL;
+const dbURL = "mongodb://localhost:27017/todo";
+
+const store = MongoStore.create({
+	mongoUrl: dbURL,
+	crypto: { secret: "secretkey" },
+	touchAfter: 24 * 60 * 60,
+});
+
+store.on("error", function (e) {
+	console.log("SESSION STORE ERROR", e);
+});
+
+const sessionConfig = {
+	store,
+	name: "session",
+	secret: "secretkey",
+	resave: false,
+	saveUninitialized: false,
+};
+
+app.use(session(sessionConfig));
 
 app.use(flash());
 
@@ -40,7 +63,7 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-mongoose.connect("mongodb://localhost:27017/todo");
+mongoose.connect(dbURL);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
