@@ -1,6 +1,9 @@
 <%- include("../partials/header.ejs") %> 
 	<body>
-		<%- include("../partials/navbar.ejs") %> 
+		<%- include("../partials/navbar.ejs") %>
+		
+		<%- include("../partials/flash.ejs") %>
+
 
 		<h1><%= project.name %></h1> 
 		<% if(items && items.length > 0){ %>
@@ -25,7 +28,7 @@
 				<% } %>
 		</ul>
 
-		<div><a href="/items/new">Add Item</a></div>
+		<div><a href="/items/new?returnTo=/projects/<%= project.id %>&currentProject=<%= project.name%>">Add Item</a></div>
 		<a href="/projects">All Projects</a>
 		<% if (!(project.name == "Inbox")){ %>
 		<a href="/projects/<%= project.id %>/edit">Edit Project</a>

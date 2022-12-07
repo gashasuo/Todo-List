@@ -10,7 +10,7 @@ const methodOverride = require("method-override");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const session = require("express-session");
-const { isLoggedIn, isProjectOwner, isItemOwner } = require("./middleware");
+const { isLoggedIn, isProjectOwner, isItemOwner, returnTo } = require("./middleware");
 const flash = require("connect-flash");
 const MongoStore = require("connect-mongo");
 

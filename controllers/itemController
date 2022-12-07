@@ -23,8 +23,15 @@ module.exports.index = async (req, res, next) => {
 
 module.exports.getNewItemForm = async (req, res, next) => {
 	try {
+		let currentProject = "";
+		if (req.query.returnTo) {
+			req.session.returnTo = req.query.returnTo;
+		}
+		if (req.query.currentProject) {
+			currentProject = req.query.currentProject;
+		}
 		const projects = await Project.find({});
-		res.render("items/new.ejs", { projects, title: "Create Item" });
+		res.render("items/new.ejs", { projects, title: "Create Item", currentProject });
 	} catch (e) {
 		next(e);
 	}
@@ -38,7 +45,8 @@ module.exports.postNewItem = async (req, res, next) => {
 		const project = await Project.findByIdAndUpdate(req.body.project, {
 			item: newItem._id,
 		});
-		res.redirect("/items");
+		const redirectUrl = res.locals.returnTo || "/items";
+		res.redirect(redirectUrl);
 	} catch (e) {
 		next(e);
 	}
@@ -78,8 +86,9 @@ module.exports.getItemDetails = async (req, res, next) => {
 
 module.exports.deleteItem = async (req, res, next) => {
 	try {
+		const redirectUrl = req.query.returnTo;
 		await Item.findByIdAndDelete(req.params.id);
-		res.redirect("/items");
+		res.redirect(redirectUrl);
 	} catch (e) {
 		next(e);
 	}

@@ -42,9 +42,7 @@ Array.from(uncompletedEl).forEach((element) => {
 //mark all complete in project
 if (markAllCompleteEL) {
 	markAllCompleteEL.addEventListener("click", (e) => {
-		console.log(e);
 		let elementID = e.currentTarget.dataset.id;
-		console.log(e.currentTarget.dataset.id);
 		markAllItemsComplete(elementID).then((data) => {
 			Array.from(uncompletedEl).forEach((element) => {
 				if (!(element.previousElementSibling.classList == "completed")) {

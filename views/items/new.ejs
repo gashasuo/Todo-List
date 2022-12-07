@@ -1,6 +1,9 @@
 <%- include("../partials/header.ejs") %> 
 	<body>
-		<%- include("../partials/navbar.ejs") %> 
+		<%- include("../partials/navbar.ejs") %>
+		
+		<%- include("../partials/flash.ejs") %>
+
 
 		<h1>Add a ToDo Item</h1>
 		<form action="/items" method="POST">
@@ -13,8 +16,12 @@
 			<select name="project" id="project">
 				<% for (project of projects){ %> 
 					<% if (project.user == currentUser.id){ %>
-				<option value="<%= project.id%>"><%= project.name%></option>
-				<% } %> 
+						<% if(project.name == currentProject){ %>
+							<option value="<%= project.id%>" selected><%= project.name%></option>
+						<% } else{%>
+							<option value="<%= project.id%>"><%= project.name%></option>
+						<% } %> 
+						<% } %> 
 				<% } %> 
 			</select>	
 		</div>	

@@ -2,17 +2,19 @@
 	<body>
 		<%- include("../partials/navbar.ejs") %> 
 
+		<%- include("../partials/flash.ejs") %>
+
+
 		<h1><%= item.name %></h1>
 		<h3><% if (project) { %> 
-			Project: <%=project.name%>
+			Project: <a href="/projects/<%= project.id%>"><%=project.name%></a>
 			<% } %> 
 		</h3>
 
 		<a href="/items">All Items</a>
 		<a href="/items/<%= item.id %>/edit">Edit Item</a>
-		<form action="/items/<%= item.id %>?_method=DELETE" method="POST">
+		<form action="/items/<%= item.id %>?_method=DELETE&returnTo=/projects/<%= project.id %>" method="POST">
 			<button>Delete</button>
 		</form>
-
 	</body>
 </html>

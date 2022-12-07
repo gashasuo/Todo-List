@@ -3,7 +3,6 @@ body{
     color: lightskyblue;
     font-family: 'Helvetica', 'Arial', sans-serif;
     margin: 5px 50px;
- 
 }
 
 *{
@@ -26,12 +25,10 @@ a:hover{
     color: lightskyblue;
     text-decoration: underline;
     font-size: smaller;
-
 }
 
 #markAll{
     color: white;
-
 }
 
 #markAll:hover{
@@ -49,7 +46,6 @@ a:hover{
     background-color: black;
     border-radius: 15px;
     padding: 10px 0px;
-   
 }
 
 .navbar a{
@@ -86,8 +82,6 @@ li > p{
     margin-bottom: 8px;
     margin-top: -5px;
 }
-
-
 
 li{
     margin: 0;
