@@ -2,32 +2,38 @@
 </html>
 	<body>
 		<%- include("../partials/navbar.ejs") %> 
-		<h1>All Projects</h1>
 		<%- include("../partials/flash.ejs") %> 
+		<section class="projectHome">
+		<h1>All Projects</h1>
 		<ul class = "uncompleted">
 			<% for (let project of projects) {%>
 				<% if (project.name == "Inbox") {%> 
 					<li><a href="/projects/<%= project.id %>"><%= project.name %></a> <span class = "project" data-id="<%=project.id %>"></span></li>
 				<% } else{%> 
 					<% if(project.complete == false){ %>
-					<li><a href="/projects/<%= project.id %>"><%= project.name %></a> <span class = "project" data-id="<%=project.id %>">&#9744;</span></li>
+					<li><a href="/projects/<%= project.id %>"><%= project.name %></a> <span class = " checkmark project" data-id="<%=project.id %>">&#9744;</span></li>
 				<% } %>
 				<% } %>
 			<% } %> 
 		</ul>
+
+
 		<h3 id="complete">Projects left to complete: <%= complete %> 
 		</h3>
-		<a href="/projects/new">Create New Project</a>
 
-		<h2>Completed</h2>
+		<a class="fill-btn" href="/projects/new">Create New Project</a>
+
+
+
+		<h2>Completed Projects</h2>
 			<ul class="complete">
 				<% for (let project of projects) {%>
 					<% if(project.complete == true){ %>
-					<li><a class= "completed" href="/projects/<%= project.id %>"><%= project.name %></a> <span class = "project" data-id="<%=project.id %>">&#10003;</span></li>
+					<li><a class= "completed" href="/projects/<%= project.id %>"><%= project.name %></a> <span class = " checkmark project" data-id="<%=project.id %>">&#10003;</span></li>
 					<% } %>
 					<% } %>
 			</ul>
-
+		</section>
 		<script src="/js/app.js"></script>
 	</body>
 </html>

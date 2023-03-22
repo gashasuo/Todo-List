@@ -1,3 +1,7 @@
-<h3><%= success %></h3>
+<% if (success){ %>
+<h3 class="errorDisplay"><%= success %></h3>
 
-<h3><%= error %></h3>
+<% } %> <% if (error){ %>
+
+<h3 class="errorDisplay"><%= error %></h3>
+<% } %>

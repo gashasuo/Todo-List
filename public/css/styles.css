@@ -1,91 +1,224 @@
-body{
-    background-color: #4E5166;
-    color: lightskyblue;
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    margin: 5px 50px;
+* {
+	text-decoration: none;
 }
 
-*{
-    text-decoration: none;
+body {
+	background-color: #4e5166;
+	color: lightskyblue;
+	font-family: "Helvetica", "Arial", sans-serif;
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
 }
 
-h1, h2{
-    text-decoration: underline;
+.fill-btn {
+	position: relative;
+	overflow: hidden;
+	font-weight: bold;
+	border: 1px solid black;
+	font-size: 1rem;
+	margin: 5px auto;
+	border-radius: 15px;
+	box-sizing: border-box;
+	background-color: white;
+	color: black;
+	padding: 5px;
 }
 
-a{
-    color: white;
+.fill-btn::before {
+	content: "";
+	background-color: lightskyblue;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 1rem;
+	transform: translateX(-100%);
+	transition: transform 0.5s ease;
+	opacity: 0.7;
 }
 
-a:hover{
-    text-decoration: underline;
+.fill-btn:hover::before {
+	transform: translateX(0);
 }
 
-.blue{
-    color: lightskyblue;
-    text-decoration: underline;
-    font-size: smaller;
+.checkmark:hover {
+	cursor: pointer;
 }
 
-#markAll{
-    color: white;
+button:hover {
+	cursor: pointer;
 }
 
-#markAll:hover{
-    color: lightskyblue;
+h1,
+h2 {
+	text-decoration: underline;
 }
 
-.completed{
-    color: #D5C6E0;
-    text-decoration:line-through;
+a {
+	color: white;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.blue {
+	color: lightskyblue;
+	text-decoration: underline;
+	font-size: smaller;
+}
+
+#markAll {
+	color: white;
+}
+
+#markAll:hover {
+	color: lightskyblue;
+	cursor: pointer;
+}
+
+.completed {
+	color: #d5c6e0;
+	text-decoration: line-through;
+}
+
+.errorDisplay {
+	display: flex;
+	justify-content: center;
 }
 
 /* navbar */
-.navbar{
-    display: flex;
-    background-color: black;
-    border-radius: 15px;
-    padding: 10px 0px;
+.navbar {
+	display: flex;
+	background-color: black;
+	border-radius: 15px;
+	padding: 10px 0px;
+	margin: 5px 50px;
 }
 
-.navbar a{
-    padding: 3px 5px;
+.navbar a {
+	padding: 3px 5px;
 }
 
-.navbar a:hover{
-    color: black;
-    background-color: lightskyblue;
-    border-radius: 5px;
-    text-decoration: none;
+.navbar a:hover {
+	color: black;
+	background-color: lightskyblue;
+	border-radius: 5px;
+	text-decoration: none;
 }
 
-.navbar div{
-    flex: 1;
+.navbar div {
+	flex: 1;
 }
 
-.div1{
-    text-align: start;
-    padding-left: 20px;
+.div1 {
+	text-align: start;
+	padding-left: 20px;
 }
 
-.div2{
-    text-align: end;
-    padding-right: 20px;
+.div2 {
+	text-align: end;
+	padding-right: 20px;
 }
 
-#profile{
-    font-weight: bolder;
+#profile {
+	font-weight: bolder;
 }
 
-li > p{
-    margin: 0;
-    margin-bottom: 8px;
-    margin-top: -5px;
+li > p {
+	margin: 0;
+	margin-bottom: 8px;
+	margin-top: -5px;
 }
 
-li{
-    margin: 0;
-    margin-bottom: 5px;  
+li {
+	margin: 0;
+	margin-bottom: 5px;
 }
 
+/* login page */
+.login {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 2rem;
+}
 
+.login form {
+	display: flex;
+	flex-direction: column;
+}
+
+.login form div {
+	display: flex;
+	justify-content: space-between;
+	margin: 5px;
+}
+
+.login input {
+	font-size: 2rem;
+	margin-left: 5px;
+	border-radius: 15px;
+}
+
+.login button {
+	height: 25px;
+	width: 100px;
+	font-size: 1rem;
+	margin: 5px auto;
+	border-radius: 15px;
+	box-sizing: border-box;
+}
+
+@media only screen and (max-width: 700px) {
+	body {
+		background-color: black;
+	}
+}
+
+/* register page  */
+.register {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 2rem;
+}
+
+.register form {
+	display: flex;
+	flex-direction: column;
+}
+
+.register form div {
+	display: flex;
+	justify-content: space-between;
+	margin: 5px;
+}
+
+.register input {
+	font-size: 2rem;
+	margin-left: 5px;
+	border-radius: 15px;
+}
+
+.register button {
+	height: 25px;
+	width: 100px;
+	font-size: 1rem;
+	margin: 5px auto;
+	border-radius: 15px;
+}
+
+/* project home page */
+
+.projectHome {
+	font-size: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
