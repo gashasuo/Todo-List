@@ -1,7 +1,9 @@
-<% if (success){ %>
-<h3 class="errorDisplay"><%= success %></h3>
+<div class="errorDisplay">
+	<% if (success){ %>
+	<h3 class="success"><%= success %></h3>
 
-<% } %> <% if (error){ %>
+	<% } %> <% if (error){ %>
 
-<h3 class="errorDisplay"><%= error %></h3>
-<% } %>
+	<h3 class="error"><%= error %></h3>
+	<% } %>
+</div>
